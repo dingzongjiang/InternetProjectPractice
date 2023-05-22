@@ -2,6 +2,7 @@ package com.example.internetprojectpractice;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -48,6 +49,9 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
 
 //        给电话号码，验证码，密码设置最长输入长度
         et_phone_number.addTextChangedListener(new HindTextWatcher(this,et_phone_number, GetViewMaxLength.getMaxLength(et_phone_number)));
+        et_password.addTextChangedListener(new HindTextWatcher(this,et_password,GetViewMaxLength.getMaxLength(et_password)));
+        et_verifycode.addTextChangedListener(new HindTextWatcher(this,et_password,GetViewMaxLength.getMaxLength(et_verifycode)));
+
 //        给按钮添加点击事件
         btn_register.setOnClickListener(this);
         btn_get_verifycode.setOnClickListener(this);
@@ -66,7 +70,11 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v.getId()==R.id.btn_register_register){
+            if(judgeMessageLegal()){
 
+            }else {
+
+            }
         }
         if(v.getId()==R.id.btn_get_verifycode_register){
             /**
@@ -77,9 +85,21 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
                 Toast.makeText(this, "验证码错误", Toast.LENGTH_SHORT).show();
                 return;
             }*/
+//            将后端中获得的验证码以弹窗形式发送到界面中
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("验证码");
+            builder.setMessage(verifyCode);
+            builder.setPositiveButton("确定",null);
+            builder.create().show();
+
         }
     }
 
+    /**
+     *
+     * @param group the group in which the checked radio button has changed
+     * @param checkedId the unique identifier of the newly checked radio button
+     */
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         if(checkedId==R.id.radio_male){
@@ -92,12 +112,20 @@ public class RegisterMainActivity extends AppCompatActivity implements View.OnCl
 
 //    判断输入的信息是否合法
     private boolean judgeMessageLegal(){
-
-
-
-
+        if(isExistUsername){
+            Toast.makeText(this,"用户名已存在，请再此次输入一个新的用户名",Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if(et_password.getText().toString().length()<6){
+            Toast.makeText(this,"密码小于6位，请重新输入密码",Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if(et_phone_number.getText().toString().length()<11){
             Toast.makeText(this, "手机号码小于11位", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (et_verifycode.getText().toString().equals(verifyCode)){
+            Toast.makeText(this, "验证码错误，请重新获取验证码", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

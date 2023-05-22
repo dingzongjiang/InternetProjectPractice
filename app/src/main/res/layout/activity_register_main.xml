@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="用户注册"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="30dp"/>
+    <!--输入用户名-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/username"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_font_size" />
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/edittext_selector"
+            android:hint="用户名"
+            android:inputType="text"
+            android:maxLength="20"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+    <!--在这放一个提示用户名重复的文本内容-->
+    <TextView
+        android:id="@+id/hintUsernameError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+    <!--输入密码-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/password"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_font_size" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/edittext_selector"
+            android:hint="@string/input_password"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+    </LinearLayout>
+    <!--输入手机号码-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/phone_number"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_font_size" />
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/edittext_selector"
+            android:hint="手机号码"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+
+    </LinearLayout>
+    <!--输入性别-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/gender"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_font_size" />
+
+        <RadioGroup
+            android:id="@+id/rg_gender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio_male"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="男"
+                android:textSize="@dimen/common_font_size" />
+
+            <RadioButton
+                android:id="@+id/radio_female"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="女"
+                android:textSize="@dimen/common_font_size" />
+
+        </RadioGroup>
+    </LinearLayout>
+    <!--输入邮箱-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/email"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_font_size" />
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@drawable/edittext_selector"
+            android:hint="邮箱地址"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray" />
+
+    </LinearLayout>
+    <!--输入验证码-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_layout_height"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/verifycode"
+            android:textColor="@color/black"
+            android:textSize="@dimen/common_font_size" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4">
+
+            <EditText
+                android:id="@+id/et_verifycode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/edittext_selector"
+                android:hint="@string/input_verifycode"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="@dimen/common_font_size" />
+
+            <Button
+                android:id="@+id/btn_get_verifycode_register"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:text="@string/get_verifycode"
+                android:textSize="@dimen/common_font_size" />
+        </RelativeLayout>
+
+    </LinearLayout>
+    <!---->
+    <Button
+        android:id="@+id/btn_register_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/skyblue"
+        android:text="@string/register"
+        android:textColor="@color/black"
+        android:textSize="@dimen/button_font_size" />
+</LinearLayout>

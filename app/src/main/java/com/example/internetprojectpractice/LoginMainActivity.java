@@ -1,8 +1,10 @@
 package com.example.internetprojectpractice;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -40,6 +42,7 @@ public class LoginMainActivity extends AppCompatActivity implements RadioGroup.O
     private RadioButton rb_password;
     private RadioButton rb_verifycode;
     private Button btn_register;
+    private SharedPreferences preferences;
 
 
     @Override
@@ -72,6 +75,19 @@ public class LoginMainActivity extends AppCompatActivity implements RadioGroup.O
 //
         btn_login.setOnClickListener(this);
         btn_register.setOnClickListener(this);
+        preferences = getSharedPreferences("config", Context.MODE_PRIVATE);
+        reload();
+    }
+
+    private void reload() {
+        boolean isRemember = preferences.getBoolean("isRemember", false);
+        if (isRemember) {
+            String phone = preferences.getString("phone", "");
+            String password = preferences.getString("password", "");
+            et_phone.setText(phone);
+            et_password.setText(password);
+            cb_remember.setChecked(isRemember);
+        }
     }
 
 
@@ -205,6 +221,16 @@ public class LoginMainActivity extends AppCompatActivity implements RadioGroup.O
         });
         builder.setNegativeButton("我再看看", null);
         builder.create().show();
+
+//        判断是否勾选记住密码,如果勾选,则将手机号码和密码保存到SharedPreferences中
+        if (cb_remember.isChecked()) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("phone", et_phone.getText().toString());
+            editor.putString("password", et_password.getText().toString());
+            editor.putBoolean("remember", cb_remember.isChecked());
+            editor.commit();
+        }
+
     }
 
 

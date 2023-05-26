@@ -90,7 +90,7 @@ public class LoginMainActivity extends AppCompatActivity implements RadioGroup.O
         }
     }
 
-
+//点击不同的登录方式，在登录按钮的点击事件中，判断是密码登录还是验证码登录，显示不同的页面
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
 //        如果是密码登录，显示密码登录的布局，隐藏验证码登录的布局

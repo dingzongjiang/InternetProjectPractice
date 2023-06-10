@@ -12,13 +12,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.chapter06.entity.Goods;
-import com.example.chapter06.utils.DButil;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShoppingChannelActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -12,29 +12,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetProjectPractice"
         tools:targetApi="31">
-
+        <!--<activity
+            android:name=".MainActivity2"
+            android:exported="false" />-->
         <activity
             android:name=".ShoppingCartActivity"
             android:exported="false" />
-
-        <!--<activity
+        <!--
+        <activity
             android:name=".ShoppingChannelActivity"
-            android:exported="false" />-->
-
+            android:exported="false" />
+        -->
         <activity
             android:name=".ShoppingDetailActivity"
             android:exported="false" />
-
         <activity
             android:name=".RegisterMainActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginForgetActivity"
             android:exported="false" />
-
         <activity
-            android:name=".ShoppingChannelActivity"
+            android:name=".MainActivity2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

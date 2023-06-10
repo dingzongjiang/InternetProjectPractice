@@ -21,4 +21,6 @@
     <color name="pink">#FFFFC0CB</color>
     <color name="skyblue">#FF87CEEB</color>
     <color name="orange">#FFFFA500</color>
+    <color name="dark_gray">#444444</color>
+    <color name="primary_blue">#0288cf</color>
 </resources>

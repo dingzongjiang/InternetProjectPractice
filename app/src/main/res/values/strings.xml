@@ -23,4 +23,6 @@
     <string name="gender">性别：</string>
     <string name="email">邮箱：</string>
     <string name="register">注&#160;&#160;&#160;&#160;册</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

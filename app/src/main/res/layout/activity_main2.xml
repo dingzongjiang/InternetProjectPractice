@@ -29,6 +29,7 @@
 
         <RadioButton
             android:id="@+id/rb_home"
+            android:tag="home"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -41,6 +42,7 @@
 
         <RadioButton
             android:id="@+id/rb_category"
+            android:tag="category"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -52,6 +54,7 @@
 
         <RadioButton
             android:id="@+id/rb_cart"
+            android:tag="cart"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -63,6 +66,7 @@
 
         <RadioButton
             android:id="@+id/rb_user"
+            android:tag="user"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

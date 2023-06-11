@@ -73,8 +73,8 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/ll_cart"
+                <ListView
+                    android:id="@+id/lv_cart"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />

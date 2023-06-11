@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">InternetProjectPractice</string>
+    <string name="app_name">网上商城</string>
     <string name="login_by_password">密码登录</string>
     <string name="login_by_verifycode">验证码登录</string>
     <string name="phone_number">手机号码:</string>

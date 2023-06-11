@@ -1,14 +1,20 @@
 package com.example.internetprojectpractice.fragment;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.internetprojectpractice.R;
+import com.example.internetprojectpractice.pojo.Cart;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +67,27 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        List<Cart> carts = getShoppingCart();
+        LinearLayout ll_empty = view.findViewById(R.id.ll_empty);
+//        下面两行是测试代码，测试完成后需要删除
+        Cart cartOne = new Cart();
+        carts.add(cartOne);
+        if (carts == null) {
+            ll_empty.setVisibility(View.VISIBLE);
+        } else {
+            ll_empty.setVisibility(View.GONE);
+
+        }
+        return view;
     }
+
+    private List<Cart> getShoppingCart() {
+//        OkHttpClient client = new OkHttpClient();
+        List<Cart> cartList = new ArrayList<>();
+
+        return cartList;
+    }
+
+
 }

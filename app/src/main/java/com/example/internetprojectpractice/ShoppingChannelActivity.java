@@ -32,7 +32,7 @@ public class ShoppingChannelActivity extends AppCompatActivity implements View.O
 //        获取网格布局控件
         gl_channel = findViewById(R.id.gl_channel);
 
-        btn_add = findViewById(R.id.btn_add);
+//        btn_add = findViewById(R.id.btn_add);
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.iv_cart).setOnClickListener(this);
 //        展示商品
@@ -50,14 +50,14 @@ public class ShoppingChannelActivity extends AppCompatActivity implements View.O
             ImageView iv_thumb = view.findViewById(R.id.iv_thumb);
             TextView tv_name = view.findViewById(R.id.tv_name);
             TextView tv_price = view.findViewById(R.id.tv_price);
-            view.findViewById(R.id.btn_add).setOnClickListener(v -> {
-                /*
-                添加购物车时注意，先判断该用户是否已经添加了该商品，如果已经添加了，则更新数量，否则添加新的记录
-
-
-                 */
-                addCart(tv_name.getText().toString(), tv_price.getText().toString());
-            });
+//            view.findViewById(R.id.btn_add).setOnClickListener(v -> {
+//                /*
+//                添加购物车时注意，先判断该用户是否已经添加了该商品，如果已经添加了，则更新数量，否则添加新的记录
+//
+//
+//                 */
+//                addCart(tv_name.getText().toString(), tv_price.getText().toString());
+//            });
             iv_thumb.setImageResource(R.drawable.iphone);
             tv_name.setText("iPhone 12");
             tv_price.setText("8888");

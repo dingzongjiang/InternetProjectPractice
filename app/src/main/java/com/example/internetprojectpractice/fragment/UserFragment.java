@@ -1,13 +1,15 @@
 package com.example.internetprojectpractice.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.internetprojectpractice.LoginMainActivity;
 import com.example.internetprojectpractice.R;
 
 /**
@@ -15,7 +17,7 @@ import com.example.internetprojectpractice.R;
  * Use the {@link UserFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UserFragment extends Fragment {
+public class UserFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +63,27 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_user, container, false);
+        View view = inflater.inflate(R.layout.fragment_user, container, false);
+        TextView tv_username = view.findViewById(R.id.tv_username);
+        TextView tv_address_manage = view.findViewById(R.id.tv_address_manage);
+        TextView tv_order_manage = view.findViewById(R.id.tv_order_manage);
+        tv_address_manage.setOnClickListener(this);
+        tv_username.setOnClickListener(this);
+        return view;
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.tv_username) {
+            Intent intent = new Intent(getActivity(), LoginMainActivity.class);
+            startActivity(intent);
+        }
+        if (v.getId() == R.id.tv_address_manage) {
+
+        }
+        if (v.getId() == R.id.tv_order_manage) {
+
+        }
     }
 }

@@ -7,30 +7,28 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.fragment.app.Fragment;
-
 import com.example.internetprojectpractice.R;
 import com.example.internetprojectpractice.pojo.Goods;
 
 import java.util.List;
 
-public class ShoppingCartAdapter extends BaseAdapter {
+public class ShoppingHomeAdapter extends BaseAdapter {
+    private final List<Goods> mGoodsList;
     private final Context mContext;
-    private final List<Goods> mCartList;
 
-    public ShoppingCartAdapter(Context mContext, List<Goods> mCartList) {
-        this.mContext = mContext;
-        this.mCartList = mCartList;
+    public ShoppingHomeAdapter(Context context, List<Goods> goodsList) {
+        this.mContext = context;
+        this.mGoodsList = goodsList;
     }
 
     @Override
     public int getCount() {
-        return mCartList.size();
+        return mGoodsList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mCartList.get(position);
+        return mGoodsList.get(position);
     }
 
     @Override
@@ -40,39 +38,27 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if (convertView == null) {
-            holder = new ViewHolder();
-            convertView=View.inflate(mContext, R.layout.item_cart,null);
+        viewHolder holder ;
+        if (convertView==null) {
+            convertView=View.inflate(mContext, R.layout.item_goods,null);
+            holder = new viewHolder();
             holder.iv_thumb = convertView.findViewById(R.id.iv_thumb);
             holder.tv_name = convertView.findViewById(R.id.tv_name);
-            holder.tv_desc = convertView.findViewById(R.id.tv_desc);
             holder.tv_price = convertView.findViewById(R.id.tv_price);
-            holder.tv_sum = convertView.findViewById(R.id.tv_sum);
-            holder.tv_count = convertView.findViewById(R.id.tv_count);
             convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
+        }else {
+            holder = (viewHolder) convertView.getTag();
         }
-        Goods goods = mCartList.get(position);
+        Goods goods = mGoodsList.get(position);
         holder.tv_name.setText(goods.getTitle());
-        holder.tv_desc.setText("");
         holder.tv_price.setText(String.valueOf(goods.getPrice()));
-        holder.tv_sum.setText(String.valueOf(goods.getPrice()));
-        holder.tv_count.setText("1");
         holder.iv_thumb.setImageResource(R.drawable.xiaomi);
         return convertView;
     }
 
-
-
-    public final class ViewHolder {
+    public final class viewHolder {
         public ImageView iv_thumb;
         public TextView tv_name;
-        public TextView tv_desc;
         public TextView tv_price;
-        public TextView tv_sum;
-        public TextView tv_count;
     }
-
 }

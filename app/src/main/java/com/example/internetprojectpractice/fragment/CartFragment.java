@@ -5,16 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.internetprojectpractice.R;
-import com.example.internetprojectpractice.pojo.Cart;
+import com.example.internetprojectpractice.adapter.ShoppingCartAdapter;
+import com.example.internetprojectpractice.pojo.Goods;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,25 +69,49 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
-        List<Cart> carts = getShoppingCart();
+//        通过getShoppingCart()方法获取购物车中的商品信息
+        List<Goods> goods = getShoppingCart();
+//        找到购物车xml文件中没有商品时显示的控件
         LinearLayout ll_empty = view.findViewById(R.id.ll_empty);
+        ListView lv_cart = view.findViewById(R.id.lv_cart);
+        LinearLayout ll_bottom = view.findViewById(R.id.ll_bottom);
+        view.findViewById(R.id.iv_cart).setVisibility(View.VISIBLE);
+        view.findViewById(R.id.iv_back).setVisibility(View.GONE);
+//        找到显示购物车中商品数量的控件
+        TextView tv_count = view.findViewById(R.id.tv_count);
+//        设置购物车中商品数量的显示，只在购物车模块中显示
+        tv_count.setVisibility(View.VISIBLE);
+//        设置购物车中商品数量的值
+        tv_count.setText(String.valueOf(goods.size()));
 //        下面两行是测试代码，测试完成后需要删除
-        Cart cartOne = new Cart();
-        carts.add(cartOne);
-        if (carts == null) {
-            ll_empty.setVisibility(View.VISIBLE);
-        } else {
-            ll_empty.setVisibility(View.GONE);
+        Goods goodsOne = new Goods();
+        for (int i = 0; i < 10; i++) {
+            goods.add(goodsOne);
+        }
 
+        if (goods.isEmpty() || goods == null) {
+//            如果购物车中没有商品，则显示购物车为空的控件
+            ll_empty.setVisibility(View.VISIBLE);
+            ll_bottom.setVisibility(View.GONE);
+
+        } else {
+//            如果购物车中有商品，则隐藏购物车为空的控件
+            ll_empty.setVisibility(View.GONE);
+            ShoppingCartAdapter adapter = new ShoppingCartAdapter(getContext(), goods);
+//            设置购物车中商品的适配器
+            lv_cart.setAdapter(adapter);
         }
         return view;
     }
 
-    private List<Cart> getShoppingCart() {
+    private List<Goods> getShoppingCart() {
 //        OkHttpClient client = new OkHttpClient();
-        List<Cart> cartList = new ArrayList<>();
+        List<Goods> goodsList = new ArrayList<>();
+        /*
+        发送userID，然后后端返回该用户的购物车中所对应的商品信息
+         */
 
-        return cartList;
+        return goodsList;
     }
 
 

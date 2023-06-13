@@ -1,7 +1,6 @@
 package com.example.internetprojectpractice;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -19,13 +18,13 @@ import com.example.internetprojectpractice.fragment.UserFragment;
 public class MainActivity2 extends AppCompatActivity
         implements RadioGroup.OnCheckedChangeListener {
 
+    public Integer userId = null;
     private RadioGroup rg_button;
     //    tab对应的fragment
     private Fragment homeFragment;
     private Fragment categoryFragment;
     private Fragment cartFragment;
     private Fragment userFragment;
-
     private RadioButton rb_home;
 
     @Override

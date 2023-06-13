@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/orange"
+    tools:context=".fragment.AddAddressFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="收件人姓名："
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:background="@drawable/edittext_selector"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="地址省份："
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/et_address_province"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:background="@drawable/edittext_selector"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="地址城市："
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/et_address_city"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:background="@drawable/edittext_selector"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="地址区县："
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/et_address_area"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:background="@drawable/edittext_selector"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="详细地址："
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/et_address"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:background="@drawable/edittext_selector"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="收件人电话："
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:layout_weight="2"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:background="@drawable/edittext_selector"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_add_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="17sp"
+        android:textColor="@color/black"
+        android:text="添加"/>
+
+</LinearLayout>

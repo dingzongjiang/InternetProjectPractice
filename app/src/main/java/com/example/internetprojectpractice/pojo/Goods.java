@@ -24,6 +24,7 @@ public class Goods {
     private String created_user; // 创建人
     private String modified_user; // 最后修改人
 
+    public boolean isChecked=false;
     public Goods() {
     }
 
@@ -48,6 +49,7 @@ public class Goods {
         this.created_user = created_user;
         this.modified_user = modified_user;
     }
+
 
     /**
      * 获取
@@ -275,5 +277,21 @@ public class Goods {
 
     public String toString() {
         return "Goods{id = " + id + ", category_id = " + category_id + ", item_type = " + item_type + ", title = " + title + ", sell_point = " + sell_point + ", price = " + price + ", num = " + num + ", image = " + image + ", status = " + status + ", priority = " + priority + ", created_time = " + created_time + ", modified_time = " + modified_time + ", created_user = " + created_user + ", modified_user = " + modified_user + "}";
+    }
+
+    /**
+     * 获取
+     * @return isChecked
+     */
+    public boolean isIsChecked() {
+        return isChecked;
+    }
+
+    /**
+     * 设置
+     * @param isChecked
+     */
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
     }
 }

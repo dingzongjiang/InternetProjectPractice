@@ -1,10 +1,13 @@
 package com.example.internetprojectpractice.fragment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -12,11 +15,14 @@ import android.widget.GridView;
 import androidx.fragment.app.Fragment;
 
 import com.example.internetprojectpractice.R;
+import com.example.internetprojectpractice.ShoppingDetailActivity;
 import com.example.internetprojectpractice.adapter.ShoppingHomeAdapter;
 import com.example.internetprojectpractice.pojo.Goods;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +43,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Button btn_search;
     private List<Goods> goodsList;
     private GridView gv_channel;
+    private OkHttpClient client;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -98,6 +105,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         } else {
             ShoppingHomeAdapter adapter = new ShoppingHomeAdapter(getActivity(), goodsList);
             gv_channel.setAdapter(adapter);
+            gv_channel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    点击商品跳转到商品详情页面
+                    Intent intent = new Intent(getActivity(), ShoppingDetailActivity.class);
+                    Goods goods = (Goods) parent.getItemAtPosition(position);
+                    intent.putExtra("goods", String.valueOf(goods));
+                    startActivity(intent);
+                }
+            });
             setGridViewMargin();
         }
         return view;
@@ -125,6 +142,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         2. 将商品列表展示在GridView中
         3.发送okhttp请求
          */
+//        client = new OkHttpClient().newBuilder().build();
+
         List<Goods> goods = new ArrayList<>();
 
         return goods;
@@ -150,5 +169,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             childView.setPadding(10, 10, 10, 10);
         }
     }
-    
+
 }

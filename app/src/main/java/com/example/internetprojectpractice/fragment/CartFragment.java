@@ -1,9 +1,11 @@
 package com.example.internetprojectpractice.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.internetprojectpractice.R;
+import com.example.internetprojectpractice.ShoppingDetailActivity;
 import com.example.internetprojectpractice.adapter.ShoppingCartAdapter;
 import com.example.internetprojectpractice.pojo.Goods;
 
@@ -32,6 +35,7 @@ public class CartFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private ListView lv_cart;
 
     public CartFragment() {
         // Required empty public constructor
@@ -73,7 +77,7 @@ public class CartFragment extends Fragment {
         List<Goods> goods = getShoppingCart();
 //        找到购物车xml文件中没有商品时显示的控件
         LinearLayout ll_empty = view.findViewById(R.id.ll_empty);
-        ListView lv_cart = view.findViewById(R.id.lv_cart);
+        lv_cart = view.findViewById(R.id.lv_cart);
         LinearLayout ll_bottom = view.findViewById(R.id.ll_bottom);
         view.findViewById(R.id.iv_cart).setVisibility(View.VISIBLE);
         view.findViewById(R.id.iv_back).setVisibility(View.GONE);
@@ -84,7 +88,7 @@ public class CartFragment extends Fragment {
 //        设置购物车中商品数量的值
         tv_count.setText(String.valueOf(goods.size()));
 //        下面两行是测试代码，测试完成后需要删除
-        Goods goodsOne = new Goods();
+        Goods goodsOne = new Goods("xiaomi",6233);
         for (int i = 0; i < 10; i++) {
             goods.add(goodsOne);
         }
@@ -93,26 +97,19 @@ public class CartFragment extends Fragment {
 //            如果购物车中没有商品，则显示购物车为空的控件
             ll_empty.setVisibility(View.VISIBLE);
             ll_bottom.setVisibility(View.GONE);
-
         } else {
 //            如果购物车中有商品，则隐藏购物车为空的控件
             ll_empty.setVisibility(View.GONE);
-            ShoppingCartAdapter adapter = new ShoppingCartAdapter(getContext(), goods);
+            ShoppingCartAdapter adapter = new ShoppingCartAdapter(getActivity(), goods);
 //            设置购物车中商品的适配器
             lv_cart.setAdapter(adapter);
         }
+
         return view;
     }
 
     private List<Goods> getShoppingCart() {
-//        OkHttpClient client = new OkHttpClient();
         List<Goods> goodsList = new ArrayList<>();
-        /*
-        发送userID，然后后端返回该用户的购物车中所对应的商品信息
-         */
-
         return goodsList;
     }
-
-
 }

@@ -6,6 +6,10 @@
     <TextView
         android:id="@+id/tv_item_left"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:layout_margin="5dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"/>
 
 </LinearLayout>

@@ -1,9 +1,11 @@
 package com.example.internetprojectpractice.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import androidx.fragment.app.Fragment;
 
 import com.example.internetprojectpractice.R;
+import com.example.internetprojectpractice.ShoppingDetailActivity;
 import com.example.internetprojectpractice.adapter.ItemLeftAdapter;
 import com.example.internetprojectpractice.adapter.ShoppingHomeAdapter;
 import com.example.internetprojectpractice.pojo.Goods;
@@ -79,12 +82,28 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         gv_goods_right = view.findViewById(R.id.gv_goods_right);
         et_search = view.findViewById(R.id.et_search_category);
         btn_search = view.findViewById(R.id.btn_search_category);
-        String[] items = {};
+        String[] items = {"电脑","手机","数码相机","耳机"};
         ItemLeftAdapter itemLeftAdapter = new ItemLeftAdapter(getActivity(), items);
         List<Goods> goodsList = getGoodsList();
+//        以下代码是为了测试，实际上应该从数据库中获取数据
+        Goods goods = new Goods();
+        for (int i = 0; i < 10; i++) {
+            goods.setTitle("小米手机");
+            goods.setPrice(3654);
+            goodsList.add(goods);
+        }
         ShoppingHomeAdapter homeAdapter = new ShoppingHomeAdapter(getActivity(), goodsList);
         lv_item_left.setAdapter(itemLeftAdapter);
         gv_goods_right.setAdapter(homeAdapter);
+        gv_goods_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    点击商品跳转到商品详情页面
+                Intent intent = new Intent(getActivity(), ShoppingDetailActivity.class);
+                intent.putExtra("goods", parent.getItemAtPosition(position).toString());
+                startActivity(intent);
+            }
+        });
         btn_search.setOnClickListener(this);
         return view;
     }
@@ -110,4 +129,6 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
+
 }

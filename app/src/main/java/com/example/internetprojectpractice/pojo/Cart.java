@@ -15,6 +15,15 @@ public class Cart {
     private String modified_user; // 修改人
     private LocalDateTime modified_time; // 修改时间
 
+    private boolean isChecked=false; // 是否选中
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public Cart() {
     }

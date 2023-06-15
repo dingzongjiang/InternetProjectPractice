@@ -4,6 +4,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CheckedTextView;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +41,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
@@ -50,6 +54,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             holder.tv_price = convertView.findViewById(R.id.tv_price);
             holder.tv_sum = convertView.findViewById(R.id.tv_sum);
             holder.tv_count = convertView.findViewById(R.id.tv_count);
+            holder.cb_check = convertView.findViewById(R.id.cb_check);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -61,12 +66,20 @@ public class ShoppingCartAdapter extends BaseAdapter {
         holder.tv_sum.setText(String.valueOf(goods.getPrice()));
         holder.tv_count.setText("1");
         holder.iv_thumb.setImageResource(R.drawable.xiaomi);
+
+        holder.cb_check.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                goods.setIsChecked(isChecked);
+            }
+        });
         return convertView;
     }
 
 
 
     public final class ViewHolder {
+        public CheckBox cb_check;
         public ImageView iv_thumb;
         public TextView tv_name;
         public TextView tv_desc;

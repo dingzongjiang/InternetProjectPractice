@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,8 +20,10 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:layout_weight="2"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_goods_desc"
                 android:layout_width="wrap_content"
@@ -30,24 +32,70 @@
                 android:textColor="@color/black"
                 android:textSize="17sp"
                 tools:text="戴尔(DELL)XPS13-9360-R1609 13.3标准版金色  " />
+
             <LinearLayout
-                android:gravity="bottom"
-                android:layout_gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent">
-                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:text="单价：" />
+
+                    <TextView
+                        android:id="@+id/tv_goods_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        tools:text="￥9999" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        android:text="数量：" />
+
+                    <TextView
+                        android:id="@+id/tv_goods_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="17sp"
+                        tools:text="1" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    tools:text="实付款：￥" />
-                <TextView
-                    android:id="@+id/tv_goods_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="17sp"
-                    tools:text="3333.99"/>
+                    android:layout_gravity="end">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="总价："
+                        android:textSize="17sp"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/tv_goods_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="17sp"
+                        android:textColor="@color/black"
+                        tools:text="￥9999"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

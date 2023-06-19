@@ -79,7 +79,6 @@ public class AddAddressFragment extends Fragment implements View.OnClickListener
         et_address_city = view.findViewById(R.id.et_address_city);
         et_address_area = view.findViewById(R.id.et_address_area);
 
-
         view.findViewById(R.id.btn_add_address).setOnClickListener(this);
         return view;
     }

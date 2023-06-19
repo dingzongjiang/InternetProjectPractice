@@ -42,7 +42,6 @@ public class LoginForgetActivity extends AppCompatActivity implements View.OnCli
         confirmPassword.addTextChangedListener(new HindTextWatcher(LoginForgetActivity.this, confirmPassword, GetViewMaxLength.getMaxLength(confirmPassword)));
         verifycode.addTextChangedListener(new HindTextWatcher(LoginForgetActivity.this, verifycode, GetViewMaxLength.getMaxLength(verifycode)));
 
-
         findViewById(R.id.btn_ok).setOnClickListener(this);
         btn_verifycode.setOnClickListener(this);
 
@@ -50,14 +49,14 @@ public class LoginForgetActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        String verifyCode="123456";
+        String verifyCode = "123456";
         /**
          * 验证码需要从服务器获取
          *
          *
          *
          */
-        String password="123456";
+        String password = "123456";
         /**
          * 密码需要从后端获取
          */
@@ -65,10 +64,10 @@ public class LoginForgetActivity extends AppCompatActivity implements View.OnCli
 //            Toast.makeText(this, "验证码已发送", Toast.LENGTH_SHORT).show();
 //            显示对话框,提示验证码已发送,并给出确定按钮,使用AlertDialog.Builder类,
 //            链式调用setTitle、setMessage、setPositiveButton、show方法
-            String desc = String.format("验证码'%s'已发送，请注意查收"+verifyCode);
+            String desc = String.format("验证码'%s'已发送，请注意查收" + verifyCode);
             /**
              * 验证码需要从服务器获取
-             *verifyCode=？？？
+             * verifyCode=？？？
              *
              *
              */
@@ -83,19 +82,15 @@ public class LoginForgetActivity extends AppCompatActivity implements View.OnCli
              * 密码需要从后端获取
              * password=？？？
              */
-            if(!verifycode.getText().toString().equals(verifyCode)){
+            if (!verifycode.getText().toString().equals(verifyCode)) {
                 Toast.makeText(this, "验证码错误，请重新验证", Toast.LENGTH_SHORT).show();
-                return;
-            }else if (!newPassword.getText().toString().equals(confirmPassword.getText().toString())) {
+            } else if (!newPassword.getText().toString().equals(confirmPassword.getText().toString())) {
                 Toast.makeText(this, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
-                return;
             } else if (newPassword.getText().toString().length() < 6) {
                 Toast.makeText(this, "密码长度不能小于6位", Toast.LENGTH_SHORT).show();
-                return;
             } else if (newPassword.getText().toString().length() > 16) {
                 Toast.makeText(this, "密码长度不能大于16位", Toast.LENGTH_SHORT).show();
-                return;
-            } else{
+            } else {
                 /**
                  * 修改密码
                  * 将修改后的密码写入数据库
@@ -104,7 +99,5 @@ public class LoginForgetActivity extends AppCompatActivity implements View.OnCli
                 finish();
             }
         }
-
     }
-
 }

@@ -66,6 +66,7 @@ public class ShoppingHomeAdapter extends BaseAdapter {
         public TextView tv_name;
         public TextView tv_price;
 
+
     }
 
 

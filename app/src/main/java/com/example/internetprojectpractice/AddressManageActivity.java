@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.internetprojectpractice.fragment.AddAddressFragment;
 import com.example.internetprojectpractice.fragment.AddressManageFragment;
+import com.example.internetprojectpractice.fragment.UpdateAddressFragment;
 
 public class AddressManageActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -17,6 +18,7 @@ public class AddressManageActivity extends AppCompatActivity implements View.OnC
     private AddAddressFragment addAddressFragment;
     private TextView tv_title;
     private TextView tv_option;
+    private UpdateAddressFragment updateAddressFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +38,13 @@ public class AddressManageActivity extends AppCompatActivity implements View.OnC
     public void initFragment(){
         addressManageFragment = new AddressManageFragment();
         addAddressFragment = new AddAddressFragment();
+        updateAddressFragment = new UpdateAddressFragment();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.fl_container_address, addressManageFragment, "addressManage");
         ft.add(R.id.fl_container_address, addAddressFragment, "addAddress");
-        ft.show(addressManageFragment).hide(addAddressFragment);
+        ft.add(R.id.fl_container_address, updateAddressFragment, "updateAddress");
+        ft.show(addressManageFragment).hide(addAddressFragment).hide(updateAddressFragment);
         ft.commit();
     }
 

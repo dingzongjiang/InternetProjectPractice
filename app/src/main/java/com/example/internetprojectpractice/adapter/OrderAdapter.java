@@ -45,6 +45,8 @@ public class OrderAdapter extends BaseAdapter {
             holder.iv_thumb=convertView.findViewById(R.id.iv_thumb);
             holder.tv_goods_desc=convertView.findViewById(R.id.tv_goods_desc);
             holder.tv_goods_price=convertView.findViewById(R.id.tv_goods_price);
+            holder.tv_goods_count=convertView.findViewById(R.id.tv_goods_count);
+            holder.tv_goods_total_price=convertView.findViewById(R.id.tv_goods_total_price);
             convertView.setTag(holder);
         }else {
             holder= (ViewHolder) convertView.getTag();
@@ -52,6 +54,8 @@ public class OrderAdapter extends BaseAdapter {
         Goods goods=mGoodsList.get(position);
         holder.tv_goods_desc.setText(goods.getTitle());
         holder.tv_goods_price.setText(String.valueOf(goods.getPrice()));
+        holder.tv_goods_count.setText("1");
+        holder.tv_goods_total_price.setText("$3666");
         holder.iv_thumb.setImageResource(R.drawable.xiaomi);
         return convertView;
     }
@@ -60,5 +64,7 @@ public class OrderAdapter extends BaseAdapter {
         public ImageView iv_thumb;
         public TextView tv_goods_desc;
         public TextView tv_goods_price;
+        public TextView tv_goods_count;
+        public TextView tv_goods_total_price;
     }
 }

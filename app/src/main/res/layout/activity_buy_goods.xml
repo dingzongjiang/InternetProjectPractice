@@ -1,91 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    android:background="@color/white"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:background="@color/orange"
+    android:orientation="vertical"
+    tools:context=".BuyGoodsActivity">
+
+    <include layout="@layout/title_shopping" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="收货地址"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="5"
+        android:id="@+id/ll_address_choice"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:layout_weight="1"
+                android:text="收件人姓名："
                 android:textColor="@color/black"
-                android:text="收件人姓名："/>
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:layout_weight="2"
                 android:textColor="@color/black"
-                tools:text="zhangsan"/>
+                android:textSize="17sp"
+                tools:text="zhangsan" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:layout_weight="1"
+                android:text="收件人电话："
                 android:textColor="@color/black"
-                android:text="收件人电话："/>
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_phone"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:layout_weight="2"
                 android:textColor="@color/black"
-                tools:text="15352368602"/>
+                android:textSize="17sp"
+                tools:text="15352368602" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:layout_weight="1"
+                android:text="收件人地址："
                 android:textColor="@color/black"
-                android:text="收件人地址："/>
+                android:textSize="17sp" />
+
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="0dp"
-                android:layout_weight="2"
                 android:layout_height="wrap_content"
-                android:textSize="17sp"
+                android:layout_weight="2"
                 android:textColor="@color/black"
-                tools:text="山东省烟台市莱山区清泉路30号，烟台大学"/>
+                android:textSize="17sp"
+                tools:text="山东省烟台市莱山区清泉路30号，烟台大学" />
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_weight="1"
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-        <Button
-            android:id="@+id/btn_edit"
+        android:gravity="center"
+        android:text="购买列表"
+        android:textColor="@color/black"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_goods"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="编辑"
-            android:textSize="17sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-           />
+            android:background="@color/white"/>
+
     </LinearLayout>
+
+
 </LinearLayout>

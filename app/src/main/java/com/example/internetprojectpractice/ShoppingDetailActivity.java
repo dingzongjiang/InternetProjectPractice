@@ -48,7 +48,7 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
     //    展示商品详情
     private void showDetail() {
         Intent intent = getIntent();
-        Integer id = intent.getIntExtra("goods_id", 0);// 获取商品编号
+//        Integer id = intent.getIntExtra("goods_id", 0);// 获取商品编号
         /**
          * 发送okhttp请求
          * getGoodsById(id)
@@ -89,8 +89,25 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
             builder.create().show();
         }
         if (v.getId() == R.id.btn_buy) {
-
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            View view = getLayoutInflater().inflate(R.layout.custom_dialog_layout, null);
+            NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
+            numberPicker.setMaxValue(10);
+            numberPicker.setMinValue(1);
+            builder.setView(view);
+            builder.setTitle("请选择你要购买的商品数量");
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                int sum = numberPicker.getValue();
+                buyGoods(sum);
+            });
+            builder.setNegativeButton("取消", null);
+            builder.create().show();
         }
+    }
+
+    private void buyGoods(int sum) {
+        Intent intent = new Intent(this, BuyGoodsActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -112,4 +129,6 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
          */
         return null;
     }
+
+
 }

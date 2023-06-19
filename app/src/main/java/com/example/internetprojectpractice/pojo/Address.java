@@ -1,8 +1,10 @@
 package com.example.internetprojectpractice.pojo;
 
+import android.os.Parcelable;
+
 import java.time.LocalDateTime;
 
-public class Address {
+public class Address{
     private Integer aid; // 收获地址id
     private Integer uid;  // 用户id
     private String name;//收货人姓名

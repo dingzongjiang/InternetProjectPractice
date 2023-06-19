@@ -1,12 +1,16 @@
 package com.example.internetprojectpractice.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.internetprojectpractice.R;
@@ -81,8 +85,10 @@ public class AddressManageFragment extends Fragment {
             address.setAddress("华南理工大学");
             addressList.add(address);
         }
+
         AcceptAddressAdapter adapter = new AcceptAddressAdapter(getActivity(), addressList);
         lv_address.setAdapter(adapter);
+
         return view;
     }
 

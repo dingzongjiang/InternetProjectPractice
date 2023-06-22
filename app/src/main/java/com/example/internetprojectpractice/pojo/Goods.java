@@ -1,5 +1,10 @@
 package com.example.internetprojectpractice.pojo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.time.LocalDateTime;
 
 import lombok.Data;
@@ -8,7 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 
-public class Goods {
+public class Goods implements Parcelable {
     private Integer id; // 商品编号
     private Integer category_id; // 商品分类编号
     private String item_type; // 商品类型
@@ -50,6 +55,54 @@ public class Goods {
         this.modified_user = modified_user;
     }
 
+
+    protected Goods(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            category_id = null;
+        } else {
+            category_id = in.readInt();
+        }
+        item_type = in.readString();
+        title = in.readString();
+        sell_point = in.readString();
+        price = in.readDouble();
+        if (in.readByte() == 0) {
+            num = null;
+        } else {
+            num = in.readInt();
+        }
+        image = in.readString();
+        if (in.readByte() == 0) {
+            status = null;
+        } else {
+            status = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            priority = null;
+        } else {
+            priority = in.readInt();
+        }
+        created_user = in.readString();
+        modified_user = in.readString();
+        isChecked = in.readByte() != 0;
+    }
+
+    public static final Creator<Goods> CREATOR = new Creator<Goods>() {
+        @Override
+        public Goods createFromParcel(Parcel in) {
+            return new Goods(in);
+        }
+
+        @Override
+        public Goods[] newArray(int size) {
+            return new Goods[size];
+        }
+    };
 
     /**
      * 获取
@@ -293,5 +346,52 @@ public class Goods {
      */
     public void setIsChecked(boolean isChecked) {
         this.isChecked = isChecked;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(id);
+        }
+        if (category_id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(category_id);
+        }
+        dest.writeString(item_type);
+        dest.writeString(title);
+        dest.writeString(sell_point);
+        dest.writeDouble(price);
+        if (num == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(num);
+        }
+        dest.writeString(image);
+        if (status == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(status);
+        }
+        if (priority == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(priority);
+        }
+        dest.writeString(created_user);
+        dest.writeString(modified_user);
+        dest.writeByte((byte) (isChecked ? 1 : 0));
     }
 }

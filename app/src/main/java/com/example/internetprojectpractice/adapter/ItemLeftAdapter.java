@@ -7,24 +7,27 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.internetprojectpractice.R;
+import com.example.internetprojectpractice.pojo.Category;
+
+import java.util.List;
 
 public class ItemLeftAdapter extends BaseAdapter {
     private final Context mContext;
-    private final String[] mItems;
+    private final List<Category> mCategoryList;
 
-    public ItemLeftAdapter(Context mContext, String[] mItems) {
+    public ItemLeftAdapter(Context mContext, List<Category> mCategoryList) {
         this.mContext = mContext;
-        this.mItems = mItems;
+        this.mCategoryList = mCategoryList;
     }
 
     @Override
     public int getCount() {
-        return mItems.length;
+        return mCategoryList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mItems[position];
+        return mCategoryList.get(position);
     }
 
     @Override
@@ -43,7 +46,7 @@ public class ItemLeftAdapter extends BaseAdapter {
         }else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv_item.setText(mItems[position]);
+        holder.tv_item.setText(mCategoryList.get(position).getName());
         return convertView;
     }
 

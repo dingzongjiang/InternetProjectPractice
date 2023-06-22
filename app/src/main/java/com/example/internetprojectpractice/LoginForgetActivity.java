@@ -26,8 +26,8 @@ public class LoginForgetActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_forget);
 //        获取上一个页面传递的手机号码
-        Intent intent = getIntent();
-        String phone = intent.getStringExtra("phone");
+//        Intent intent = getIntent();
+//        String phone = intent.getStringExtra("phone");
 //        获取控件
         et_phone = findViewById(R.id.et_phone);
         newPassword = findViewById(R.id.et_input_new_password);
@@ -35,7 +35,7 @@ public class LoginForgetActivity extends AppCompatActivity implements View.OnCli
         verifycode = findViewById(R.id.et_verifycode);
         btn_verifycode = findViewById(R.id.btn_get_verifycode);
 //        给手机号码输入框设置文本
-        et_phone.setText(phone);
+//        et_phone.setText(phone);
 //        给手机号码输入框设置监听器，使用addTextChangedListener方法
         et_phone.addTextChangedListener(new HindTextWatcher(LoginForgetActivity.this, et_phone, GetViewMaxLength.getMaxLength(et_phone)));
         newPassword.addTextChangedListener(new HindTextWatcher(LoginForgetActivity.this, newPassword, GetViewMaxLength.getMaxLength(newPassword)));

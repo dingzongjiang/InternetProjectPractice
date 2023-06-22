@@ -73,7 +73,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         tv_username.setOnClickListener(this);
         tv_order_manage.setOnClickListener(this);
         return view;
-
     }
 
     @Override

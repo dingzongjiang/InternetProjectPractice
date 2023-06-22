@@ -2,6 +2,7 @@ package com.example.internetprojectpractice;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -19,17 +20,22 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
     private TextView tv_goods_price;
     private TextView tv_goods_desc;
     private ImageView iv_goods_pic;
+    private Goods goods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_detail);
+        goods = getIntent().getParcelableExtra("goods");
+
         tv_title = findViewById(R.id.tv_title);
         tv_count = findViewById(R.id.tv_count);
         tv_goods_price = findViewById(R.id.tv_goods_price);
         tv_goods_desc = findViewById(R.id.tv_goods_desc);
         iv_goods_pic = findViewById(R.id.iv_goods_pic);
+
+
         findViewById(R.id.iv_back).setOnClickListener(this);
         findViewById(R.id.iv_cart).setOnClickListener(this);
         findViewById(R.id.btn_add_cart).setOnClickListener(this);
@@ -54,8 +60,8 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
          * getGoodsById(id)
          */
         tv_title.setText("商品详情");
-        tv_goods_desc.setText("iphone12，苹果手机");
-        tv_goods_price.setText("6666");
+        tv_goods_desc.setText(goods.getTitle());
+        tv_goods_price.setText(String.valueOf(goods.getPrice()));
 //        tv_count.setText("10");
         iv_goods_pic.setImageResource(R.drawable.iphone);
     }

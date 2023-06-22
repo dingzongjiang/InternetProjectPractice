@@ -22,7 +22,7 @@ import com.example.internetprojectpractice.utils.ViewUtil;
 
 public class LoginMainActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
 
-    public static Integer userId = null;
+    public static String username=null;
     private TextView tv_login_password;
     private CheckBox cb_remember;
     private Button btn_forget;

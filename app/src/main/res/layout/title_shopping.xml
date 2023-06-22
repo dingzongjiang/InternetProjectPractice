@@ -19,9 +19,9 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:gravity="center"
-        tools:text="首页"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        tools:text="首页" />
 
     <ImageView
         android:id="@+id/iv_cart"

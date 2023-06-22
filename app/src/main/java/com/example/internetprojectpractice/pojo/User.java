@@ -3,9 +3,10 @@ package com.example.internetprojectpractice.pojo;
 import java.sql.Timestamp;
 
 import lombok.Data;
+import okhttp3.RequestBody;
 
 @Data
-public class User {
+public class User{
 //    用户id
     private Integer uid;
 //    用户名
@@ -51,6 +52,9 @@ public class User {
         this.createTime = createTime;
         this.modifiedUser = modifiedUser;
         this.modifiedTime = modifiedTime;
+    }
+
+    public User(String username, String password) {
     }
 
     /**

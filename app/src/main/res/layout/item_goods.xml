@@ -15,6 +15,7 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="17sp"
+        android:maxLines="2"
         tools:text="小米手机" />
 
     <ImageView

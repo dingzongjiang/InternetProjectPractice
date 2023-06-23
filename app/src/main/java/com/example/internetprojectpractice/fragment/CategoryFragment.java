@@ -104,8 +104,10 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
         et_search = view.findViewById(R.id.et_search_category);
         btn_search = view.findViewById(R.id.btn_search_category);
         getCategoryData();
+
         getGoodsList();
-        setGridViewMargin();
+
+
         btn_search.setOnClickListener(this);
         return view;
     }
@@ -193,6 +195,7 @@ public class CategoryFragment extends Fragment implements View.OnClickListener {
     private void render(List<Goods> goods) {
         ShoppingHomeAdapter homeAdapter = new ShoppingHomeAdapter(getActivity(), goods);
         gv_goods_right.setAdapter(homeAdapter);
+        setGridViewMargin();
         gv_goods_right.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

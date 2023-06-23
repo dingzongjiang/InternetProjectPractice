@@ -1,5 +1,6 @@
 package com.example.internetprojectpractice.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,11 +8,32 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.internetprojectpractice.R;
+import com.example.internetprojectpractice.dto.AddressDto;
 import com.example.internetprojectpractice.pojo.Address;
+import com.example.internetprojectpractice.pojo.CodeData;
+import com.example.internetprojectpractice.pojo.FromData;
+import com.example.internetprojectpractice.pojo.NameData;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +56,8 @@ public class AddAddressFragment extends Fragment implements View.OnClickListener
     private EditText et_address_province;
     private EditText et_address_city;
     private EditText et_address_area;
+    private SharedPreferences sharedPreferences;
+    private Gson gson;
 
     public AddAddressFragment() {
         // Required empty public constructor
@@ -72,6 +96,9 @@ public class AddAddressFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_address, container, false);
 
+        sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
+        gson = new Gson();
+
         et_name = view.findViewById(R.id.et_name);
         et_address = view.findViewById(R.id.et_address);
         et_phone = view.findViewById(R.id.et_phone);
@@ -98,15 +125,60 @@ public class AddAddressFragment extends Fragment implements View.OnClickListener
                 Toast.makeText(getActivity(), "你的信息不完备，请继续完善你的信息", Toast.LENGTH_SHORT).show();
             } else {
                 Address aDdress = new Address(name, province, city, area, address, phone);
+                System.out.println(aDdress);
                 addAddress(aDdress);
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.show(new AddressManageFragment()).hide(this).commit();
             }
         }
     }
 
     private void addAddress(Address address) {
 //        在这使用okhttp向服务器发送请求，添加地址
-        Toast.makeText(getActivity(), "添加地址成功", Toast.LENGTH_SHORT).show();
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        CodeData codedata = new CodeData("", "", "");
+        FromData fromdata = new FromData(address.getName(), address.getAddress(), address.getPhone());
+        NameData namedata = new NameData(address.getProvinceName(), address.getCityName(), address.getAreaName());
+        String token = sharedPreferences.getString("token", "");
+        AddressDto addressDto = new AddressDto(codedata, fromdata, namedata, token);
+        System.out.println(addressDto);
+        String json = gson.toJson(addressDto);
+        System.out.println(json);
+        RequestBody requestBody = RequestBody.create(json,
+                MediaType.parse("application/json; charset=utf-8"));
+        Request request = new Request.Builder()
+                .url("http://10.0.2.2:8080/address/add")
+                .post(requestBody)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try {
+                    if (response.isSuccessful()) {
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("添加地址成功")
+                                .setMessage("添加地址成功")
+                                .setPositiveButton("确定", (dialog, which) -> {
+                                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                                    ft.replace(R.id.fl_container_address,new AddressManageFragment());
+                                    ft.commit();
+                                })
+                                .show();
+                    }else {
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle("添加地址失败")
+                                .setMessage("添加地址失败")
+                                .setPositiveButton("确定", null)
+                                .show();
+                    }
+                } finally {
+                    response.close();
+                }
+            }
+        });
+
     }
 }

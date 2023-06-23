@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@color/orange"
         android:layout_margin="5dp"
+        android:maxLines="1"
         android:textSize="20sp"
         android:textColor="@color/black"/>
 

@@ -19,8 +19,6 @@ import com.example.internetprojectpractice.fragment.UserFragment;
 
 public class MainActivity2 extends AppCompatActivity
         implements RadioGroup.OnCheckedChangeListener {
-    
-    public Integer userId = null;
     private RadioGroup rg_button;
     //    tab对应的fragment
     private Fragment homeFragment;

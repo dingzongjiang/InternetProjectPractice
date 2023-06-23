@@ -57,6 +57,14 @@ public class User{
     public User(String username, String password) {
     }
 
+    public User(String username, String password, String phone, String email, Integer gender) {
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+    }
+
     /**
      * 获取
      * @return uid

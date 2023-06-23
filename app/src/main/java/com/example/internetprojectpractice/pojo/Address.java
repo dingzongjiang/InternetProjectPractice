@@ -1,20 +1,22 @@
 package com.example.internetprojectpractice.pojo;
 
+import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 
 import java.time.LocalDateTime;
 
-public class Address{
+public class Address implements Parcelable {
     private Integer aid; // 收获地址id
     private Integer uid;  // 用户id
     private String name;//收货人姓名
-    private String province_name; // 省份
-    private String province_code; // 省份编码
-    private String city_name; // 城市
-    private String city_code; // 城市编码
-    private String area_name; // 区县
-    private String area_code; // 区县编码
-    private String zip; // 邮政编码
+    private String provinceName;
+    private  String provinceCode;
+    private  String cityName;
+    private  String cityCode;
+    private  String areaName;
+    private  String areaCode;
     private String address; // 详细地址
     private String phone; // 手机号码
     private String tel; // 固定电话
@@ -30,26 +32,16 @@ public class Address{
     public Address() {
     }
 
-    public Address(String name, String province_name, String city_name, String area_name, String address, String phone) {
-        this.name = name;
-        this.province_name = province_name;
-        this.city_name = city_name;
-        this.area_name = area_name;
-        this.address = address;
-        this.phone = phone;
-    }
-
-    public Address(Integer aid, Integer uid, String name, String province_name, String province_code, String city_name, String city_code, String area_name, String area_code, String zip, String address, String phone, String tel, String tag, Integer is_default, String created_user, String modified_user, LocalDateTime create_time, LocalDateTime modified_time, Integer is_delete) {
+    public Address(Integer aid, Integer uid, String name, String provinceName, String provinceCode, String cityName, String cityCode, String areaName, String areaCode, String address, String phone, String tel, String tag, Integer is_default, String created_user, String modified_user, LocalDateTime create_time, LocalDateTime modified_time, Integer is_delete) {
         this.aid = aid;
         this.uid = uid;
         this.name = name;
-        this.province_name = province_name;
-        this.province_code = province_code;
-        this.city_name = city_name;
-        this.city_code = city_code;
-        this.area_name = area_name;
-        this.area_code = area_code;
-        this.zip = zip;
+        this.provinceName = provinceName;
+        this.provinceCode = provinceCode;
+        this.cityName = cityName;
+        this.cityCode = cityCode;
+        this.areaName = areaName;
+        this.areaCode = areaCode;
         this.address = address;
         this.phone = phone;
         this.tel = tel;
@@ -61,6 +53,63 @@ public class Address{
         this.modified_time = modified_time;
         this.is_delete = is_delete;
     }
+
+    public Address(String name, String provinceName, String cityName, String areaName, String address, String phone) {
+        this.name = name;
+        this.provinceName = provinceName;
+        this.cityName = cityName;
+        this.areaName = areaName;
+        this.address = address;
+        this.phone = phone;
+    }
+
+    protected Address(Parcel in) {
+        if (in.readByte() == 0) {
+            aid = null;
+        } else {
+            aid = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            uid = null;
+        } else {
+            uid = in.readInt();
+        }
+        name = in.readString();
+        provinceName = in.readString();
+        provinceCode = in.readString();
+        cityName = in.readString();
+        cityCode = in.readString();
+        areaName = in.readString();
+        areaCode = in.readString();
+        address = in.readString();
+        phone = in.readString();
+        tel = in.readString();
+        tag = in.readString();
+        if (in.readByte() == 0) {
+            is_default = null;
+        } else {
+            is_default = in.readInt();
+        }
+        created_user = in.readString();
+        modified_user = in.readString();
+        if (in.readByte() == 0) {
+            is_delete = null;
+        } else {
+            is_delete = in.readInt();
+        }
+    }
+
+    public static final Creator<Address> CREATOR = new Creator<Address>() {
+        @Override
+        public Address createFromParcel(Parcel in) {
+            return new Address(in);
+        }
+
+        @Override
+        public Address[] newArray(int size) {
+            return new Address[size];
+        }
+    };
 
     /**
      * 获取
@@ -112,114 +161,98 @@ public class Address{
 
     /**
      * 获取
-     * @return province_name
+     * @return provinceName
      */
-    public String getProvince_name() {
-        return province_name;
+    public String getProvinceName() {
+        return provinceName;
     }
 
     /**
      * 设置
-     * @param province_name
+     * @param provinceName
      */
-    public void setProvince_name(String province_name) {
-        this.province_name = province_name;
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
     }
 
     /**
      * 获取
-     * @return province_code
+     * @return provinceCode
      */
-    public String getProvince_code() {
-        return province_code;
+    public String getProvinceCode() {
+        return provinceCode;
     }
 
     /**
      * 设置
-     * @param province_code
+     * @param provinceCode
      */
-    public void setProvince_code(String province_code) {
-        this.province_code = province_code;
+    public void setProvinceCode(String provinceCode) {
+        this.provinceCode = provinceCode;
     }
 
     /**
      * 获取
-     * @return city_name
+     * @return cityName
      */
-    public String getCity_name() {
-        return city_name;
+    public String getCityName() {
+        return cityName;
     }
 
     /**
      * 设置
-     * @param city_name
+     * @param cityName
      */
-    public void setCity_name(String city_name) {
-        this.city_name = city_name;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     /**
      * 获取
-     * @return city_code
+     * @return cityCode
      */
-    public String getCity_code() {
-        return city_code;
+    public String getCityCode() {
+        return cityCode;
     }
 
     /**
      * 设置
-     * @param city_code
+     * @param cityCode
      */
-    public void setCity_code(String city_code) {
-        this.city_code = city_code;
+    public void setCityCode(String cityCode) {
+        this.cityCode = cityCode;
     }
 
     /**
      * 获取
-     * @return area_name
+     * @return areaName
      */
-    public String getArea_name() {
-        return area_name;
+    public String getAreaName() {
+        return areaName;
     }
 
     /**
      * 设置
-     * @param area_name
+     * @param areaName
      */
-    public void setArea_name(String area_name) {
-        this.area_name = area_name;
+    public void setAreaName(String areaName) {
+        this.areaName = areaName;
     }
 
     /**
      * 获取
-     * @return area_code
+     * @return areaCode
      */
-    public String getArea_code() {
-        return area_code;
+    public String getAreaCode() {
+        return areaCode;
     }
 
     /**
      * 设置
-     * @param area_code
+     * @param areaCode
      */
-    public void setArea_code(String area_code) {
-        this.area_code = area_code;
-    }
-
-    /**
-     * 获取
-     * @return zip
-     */
-    public String getZip() {
-        return zip;
-    }
-
-    /**
-     * 设置
-     * @param zip
-     */
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
     /**
@@ -383,6 +416,52 @@ public class Address{
     }
 
     public String toString() {
-        return "Address{aid = " + aid + ", uid = " + uid + ", name = " + name + ", province_name = " + province_name + ", province_code = " + province_code + ", city_name = " + city_name + ", city_code = " + city_code + ", area_name = " + area_name + ", area_code = " + area_code + ", zip = " + zip + ", address = " + address + ", phone = " + phone + ", tel = " + tel + ", tag = " + tag + ", is_default = " + is_default + ", created_user = " + created_user + ", modified_user = " + modified_user + ", create_time = " + create_time + ", modified_time = " + modified_time + ", is_delete = " + is_delete + "}";
+        return "Address{aid = " + aid + ", uid = " + uid + ", name = " + name + ", provinceName = " + provinceName + ", provinceCode = " + provinceCode + ", cityName = " + cityName + ", cityCode = " + cityCode + ", areaName = " + areaName + ", areaCode = " + areaCode + ", address = " + address + ", phone = " + phone + ", tel = " + tel + ", tag = " + tag + ", is_default = " + is_default + ", created_user = " + created_user + ", modified_user = " + modified_user + ", create_time = " + create_time + ", modified_time = " + modified_time + ", is_delete = " + is_delete + "}";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        if (aid == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(aid);
+        }
+        if (uid == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(uid);
+        }
+        dest.writeString(name);
+        dest.writeString(provinceName);
+        dest.writeString(provinceCode);
+        dest.writeString(cityName);
+        dest.writeString(cityCode);
+        dest.writeString(areaName);
+        dest.writeString(areaCode);
+        dest.writeString(address);
+        dest.writeString(phone);
+        dest.writeString(tel);
+        dest.writeString(tag);
+        if (is_default == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(is_default);
+        }
+        dest.writeString(created_user);
+        dest.writeString(modified_user);
+        if (is_delete == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(is_delete);
+        }
     }
 }

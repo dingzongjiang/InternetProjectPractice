@@ -1,7 +1,11 @@
 package com.example.internetprojectpractice.fragment;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +14,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.internetprojectpractice.LoginMainActivity;
 import com.example.internetprojectpractice.R;
 import com.example.internetprojectpractice.ShoppingDetailActivity;
 import com.example.internetprojectpractice.adapter.CartAdapter;
@@ -41,6 +47,8 @@ public class CartFragment extends Fragment {
     private String mParam2;
     private RecyclerView rv_cart;
     private List<Goods> selectedItems;
+    private LinearLayout ll_empty;
+    private LinearLayout ll_bottom;
 
     public CartFragment() {
         // Required empty public constructor
@@ -76,14 +84,30 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        SharedPreferences sharedPreferences =getActivity().getSharedPreferences("userInfo",getActivity().MODE_PRIVATE);
+
+        if (!sharedPreferences.contains("username")) {
+            Log.i(TAG, "我被初始化了");
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("提示")
+                    .setMessage("请先登录")
+                    .setPositiveButton("确定", (dialog, which) -> {
+                        Intent intent = new Intent(getActivity(), LoginMainActivity.class);
+                        startActivity(intent);
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
+        }
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 //        通过getShoppingCart()方法获取购物车中的商品信息
         List<Goods> goods = getShoppingCart();
 //        找到购物车xml文件中没有商品时显示的控件
-        LinearLayout ll_empty = view.findViewById(R.id.ll_empty);
+        ll_empty = view.findViewById(R.id.ll_empty);
         rv_cart = view.findViewById(R.id.rv_cart);
-        LinearLayout ll_bottom = view.findViewById(R.id.ll_bottom);
+        ll_bottom = view.findViewById(R.id.ll_bottom);
         view.findViewById(R.id.iv_cart).setVisibility(View.VISIBLE);
         view.findViewById(R.id.iv_back).setVisibility(View.GONE);
 //        找到显示购物车中商品数量的控件
@@ -98,6 +122,12 @@ public class CartFragment extends Fragment {
             goods.add(goodsOne);
         }
 
+        render(goods);
+
+        return view;
+    }
+
+    private void render(List<Goods> goods) {
         if (goods.isEmpty() || goods == null) {
 //            如果购物车中没有商品，则显示购物车为空的控件
             ll_empty.setVisibility(View.VISIBLE);
@@ -116,10 +146,7 @@ public class CartFragment extends Fragment {
             selectedItems = adapter.getSelectedItems();
 
         }
-
-        return view;
     }
-
 
 
     private List<Goods> getShoppingCart() {

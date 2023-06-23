@@ -88,6 +88,11 @@ public class LoginPasswordFragment extends Fragment implements View.OnClickListe
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login_password, container, false);
 
+        Intent intent = getActivity().getIntent();
+        String username = intent.getStringExtra("username");
+        String password = intent.getStringExtra("password");
+
+
         client = new OkHttpClient.Builder().build();
         gson = new Gson();
 
@@ -95,11 +100,15 @@ public class LoginPasswordFragment extends Fragment implements View.OnClickListe
         et_password = view.findViewById(R.id.et_password_login);
         btn_login = view.findViewById(R.id.btn_login);
 
+        if (username != null) et_username.setText(username);
+        if (password != null) et_password.setText(password);
+
         btn_login.setOnClickListener(this);
         Button btn_register = view.findViewById(R.id.btn_register);
         btn_register.setOnClickListener(this);
 
         view.findViewById(R.id.btn_forget).setOnClickListener(this);
+
         return view;
     }
 
@@ -205,7 +214,7 @@ public class LoginPasswordFragment extends Fragment implements View.OnClickListe
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("username", username);
         editor.putString("password", password);
-        editor.putString("Token", Token);
+        editor.putString("token", Token);
         editor.apply();
     }
 }

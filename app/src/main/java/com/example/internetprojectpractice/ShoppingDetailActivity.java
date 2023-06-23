@@ -1,8 +1,8 @@
 package com.example.internetprojectpractice;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -12,6 +12,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.internetprojectpractice.pojo.Goods;
+import com.google.gson.Gson;
+
+import okhttp3.OkHttpClient;
 
 public class ShoppingDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,13 +24,22 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
     private TextView tv_goods_desc;
     private ImageView iv_goods_pic;
     private Goods goods;
+    private SharedPreferences sharedPreferences;
+    private OkHttpClient client;
+    private Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_detail);
+
+        client = new OkHttpClient.Builder().build();
+        gson = new Gson();
+
         goods = getIntent().getParcelableExtra("goods");
+
+        sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
 
         tv_title = findViewById(R.id.tv_title);
         tv_count = findViewById(R.id.tv_count);
@@ -37,7 +49,6 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
 
 
         findViewById(R.id.iv_back).setOnClickListener(this);
-        findViewById(R.id.iv_cart).setOnClickListener(this);
         findViewById(R.id.btn_add_cart).setOnClickListener(this);
         findViewById(R.id.btn_buy).setOnClickListener(this);
 
@@ -72,14 +83,9 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
         if (v.getId() == R.id.iv_back) {
             finish();
         }
-        if (v.getId() == R.id.iv_cart) {
-            Intent intent = new Intent(this, ShoppingCartActivity.class);
-            startActivity(intent);
-        }
         if (v.getId() == R.id.btn_add_cart) {
-            /**
-             * 发送okhttp请求
-             */
+            boolean flag = isLogin();
+            if (flag){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             View view = getLayoutInflater().inflate(R.layout.custom_dialog_layout, null);
             NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
@@ -93,22 +99,54 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
             });
             builder.setNegativeButton("取消", null);
             builder.create().show();
+            } else {
+                new AlertDialog.Builder(this)
+                        .setTitle("提示")
+                        .setMessage("请先登录")
+                        .setPositiveButton("确定", (dialog, which) -> {
+                            Intent intent = new Intent(this, LoginMainActivity.class);
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("取消", null)
+                        .create()
+                        .show();
+            }
         }
         if (v.getId() == R.id.btn_buy) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            View view = getLayoutInflater().inflate(R.layout.custom_dialog_layout, null);
-            NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
-            numberPicker.setMaxValue(10);
-            numberPicker.setMinValue(1);
-            builder.setView(view);
-            builder.setTitle("请选择你要购买的商品数量");
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                int sum = numberPicker.getValue();
-                buyGoods(sum);
-            });
-            builder.setNegativeButton("取消", null);
-            builder.create().show();
+            if (isLogin()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                View view = getLayoutInflater().inflate(R.layout.custom_dialog_layout, null);
+                NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
+                numberPicker.setMaxValue(10);
+                numberPicker.setMinValue(1);
+                builder.setView(view);
+                builder.setTitle("请选择你要购买的商品数量");
+                builder.setPositiveButton("确定", (dialog, which) -> {
+                    int sum = numberPicker.getValue();
+                    buyGoods(sum);
+                });
+                builder.setNegativeButton("取消", null);
+                builder.create().show();
+            }else{
+                new AlertDialog.Builder(this)
+                        .setTitle("提示")
+                        .setMessage("请先登录")
+                        .setPositiveButton("确定", (dialog, which) -> {
+                            Intent intent = new Intent(this, LoginMainActivity.class);
+                            startActivity(intent);
+                        })
+                        .setNegativeButton("取消", null)
+                        .create()
+                        .show();
+            }
         }
+    }
+
+    private boolean isLogin() {
+        if (sharedPreferences.contains("username")) {
+            return true;
+        }
+        return false;
     }
 
     private void buyGoods(int sum) {
@@ -126,6 +164,7 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
          * 发送okhttp请求
          * 将商品添加到购物车,需要得到用户id，如果没有用户id，需要先登录
          */
+
     }
 
     private Goods getGoodsById(Integer id) {

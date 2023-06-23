@@ -26,7 +26,7 @@ public class ShoppingCartActivity extends AppCompatActivity implements View.OnCl
         TextView tv_title = findViewById(R.id.tv_title);
         tv_title.setText("购物车");
 
-        ll_cart = findViewById(R.id.ll_cart);
+
         tv_total_price = findViewById(R.id.tv_total_price);
 
         findViewById(R.id.iv_back).setOnClickListener(this);

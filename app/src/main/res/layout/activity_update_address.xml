@@ -7,6 +7,8 @@
     android:background="@color/orange"
     tools:context=".fragment.AddAddressFragment">
 
+    <include layout="@layout/title_shopping"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

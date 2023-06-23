@@ -1,22 +1,19 @@
 package com.example.internetprojectpractice.adapter;
 
 import android.content.Context;
-import android.icu.util.BuddhistCalendar;
-import android.os.Bundle;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.example.internetprojectpractice.R;
-import com.example.internetprojectpractice.fragment.UpdateAddressFragment;
+import com.example.internetprojectpractice.UpdateAddressActivity;
 import com.example.internetprojectpractice.pojo.Address;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class AcceptAddressAdapter extends BaseAdapter {
@@ -60,26 +57,16 @@ public class AcceptAddressAdapter extends BaseAdapter {
         Address address = mAddressList.get(position);
         holder.tv_name.setText(address.getName());
         holder.tv_phone.setText(address.getPhone());
-        holder.tv_address.setText(address.getProvince_name() + " " +
-                address.getCity_name() + " " +
-                address.getArea_name() + " " +
+        holder.tv_address.setText(address.getProvinceName() + " " +
+                address.getCityName() + " " +
+                address.getAreaName() + " " +
                 address.getAddress());
         holder.btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-//                bundle.putInt("address_id", address.getAid());
-//                bundle.putInt("address_id", 1);
-
-                UpdateAddressFragment updateAddressFragment = new UpdateAddressFragment();
-                updateAddressFragment.setArguments(bundle);
-
-                FragmentManager fm = ((AppCompatActivity) mContext).getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-
-                ft.replace(R.id.fl_container_address, updateAddressFragment);
-                ft.addToBackStack(null);
-                ft.commit();
+                Intent intent = new Intent(mContext, UpdateAddressActivity.class);
+                intent.putExtra("address", address);
+                mContext.startActivity(intent);
             }
         });
         return convertView;

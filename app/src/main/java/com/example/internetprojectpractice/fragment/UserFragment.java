@@ -1,16 +1,22 @@
 package com.example.internetprojectpractice.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.internetprojectpractice.AddressManageActivity;
 import com.example.internetprojectpractice.LoginMainActivity;
+import com.example.internetprojectpractice.MainActivity2;
 import com.example.internetprojectpractice.OrderManageActivity;
 import com.example.internetprojectpractice.R;
 
@@ -29,6 +35,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private SharedPreferences sharedPreferences;
 
     public UserFragment() {
         // Required empty public constructor
@@ -66,12 +73,24 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user, container, false);
+
+        sharedPreferences = getActivity().getSharedPreferences("userInfo", getActivity().MODE_PRIVATE);
+
         TextView tv_username = view.findViewById(R.id.tv_username);
         TextView tv_address_manage = view.findViewById(R.id.tv_address_manage);
         TextView tv_order_manage = view.findViewById(R.id.tv_order_manage);
+        TextView tv_exit = view.findViewById(R.id.tv_exit);
+        ImageView iv_head_image = view.findViewById(R.id.iv_head_image);
+
+        if (sharedPreferences.contains("username")) {
+            tv_username.setText(sharedPreferences.getString("username", ""));
+        }
+
         tv_address_manage.setOnClickListener(this);
         tv_username.setOnClickListener(this);
         tv_order_manage.setOnClickListener(this);
+        tv_exit.setOnClickListener(this);
+
         return view;
     }
 
@@ -79,8 +98,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         Intent intent = null;
         if (v.getId() == R.id.tv_username) {
-            intent = new Intent(getActivity(), LoginMainActivity.class);
-            startActivity(intent);
+            if (!sharedPreferences.contains("username")) {
+                intent = new Intent(getActivity(), LoginMainActivity.class);
+                startActivity(intent);
+            }
         }
         if (v.getId() == R.id.tv_address_manage) {
             intent = new Intent(getActivity(), AddressManageActivity.class);
@@ -89,6 +110,20 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         if (v.getId() == R.id.tv_order_manage) {
             intent = new Intent(getActivity(), OrderManageActivity.class);
             startActivity(intent);
+        }
+        if (v.getId() == R.id.tv_exit) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("提示")
+                    .setMessage("确定退出登录吗？")
+                    .setPositiveButton("确定", (dialog, which) -> {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.commit();
+                        Intent innerIntent = new Intent(getActivity(), MainActivity2.class);
+                        startActivity(innerIntent);
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
         }
     }
 }

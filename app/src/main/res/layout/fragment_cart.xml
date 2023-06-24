@@ -70,8 +70,8 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_cart"
+            <ListView
+                android:id="@+id/lv_cart"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />

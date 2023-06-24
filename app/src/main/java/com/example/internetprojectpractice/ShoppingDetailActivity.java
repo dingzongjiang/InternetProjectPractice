@@ -100,6 +100,7 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
                 builder.setPositiveButton("确定", (dialog, which) -> {
                     int num = numberPicker.getValue();
                     addToCart(num);
+                    startActivity(new Intent(this, MainActivity2.class));
                 });
                 builder.setNegativeButton("取消", null);
                 builder.create().show();

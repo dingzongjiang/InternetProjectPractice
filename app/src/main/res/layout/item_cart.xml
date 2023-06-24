@@ -37,6 +37,7 @@
                 android:layout_weight="2"
                 android:gravity="left|center"
                 android:textColor="@color/black"
+                android:maxLines="3"
                 android:textSize="17sp"
                 tools:text="小米手机" />
 

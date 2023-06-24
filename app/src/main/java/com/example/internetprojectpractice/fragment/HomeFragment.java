@@ -104,11 +104,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
         gv_channel = view.findViewById(R.id.gv_channel);
 
         btn_search.setOnClickListener(this);
-//        以下是测试数据，后期需要删除
-        /*Goods goods = new Goods("小米", 6999.99);
-        for (int i = 0; i < 10; i++) {
-            goodsList.add(goods);
-        }*/
 
         getShoppingList();
 
@@ -147,11 +142,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Adap
 
     //查询商品列表
     private void getShoppingList() {
-        /*
-        1. 获取商品列表
-        2. 将商品列表展示在GridView中
-        3.发送okhttp请求
-         */
 
         Request request = new Request.Builder()
                 .url("http://10.0.2.2:8080/product/all")

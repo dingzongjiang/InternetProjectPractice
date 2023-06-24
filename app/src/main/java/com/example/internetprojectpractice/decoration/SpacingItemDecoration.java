@@ -17,6 +17,7 @@ public class SpacingItemDecoration extends RecyclerView.ItemDecoration{
         this.spacing = spacing;
     }
 
+
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         outRect.top = spacing;

@@ -110,8 +110,6 @@ public class AddressManageFragment extends Fragment {
                 .get()
                 .url("http://10.0.2.2:8080/address")
                 .build();
-//        Log.i(TAG, "我到这里了，我是AddressManageFragment，request ="+request);
-        System.out.println("我到这里了，我是AddressManageFragment，request ="+request);
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -124,12 +122,9 @@ public class AddressManageFragment extends Fragment {
                 try {
                     if (response.isSuccessful()) {
                         String json = response.body().string();
-                        System.out.println("我到这里了，我是AddressManageFragment，json ="+json);
                         Type type = new TypeToken<List<Address>>() {
                         }.getType();
                         List<Address> addressList = gson.fromJson(json, type);
-//                        Log.i(TAG, "我到这里了，我是AddressManageFragment，addressList ="+addressList);
-                        System.out.println("我到这里了，我是AddressManageFragment，addressList ="+addressList);
                         render(addressList);
                     }
                 } finally {

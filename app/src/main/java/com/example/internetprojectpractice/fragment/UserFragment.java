@@ -84,6 +84,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
         if (sharedPreferences.contains("username")) {
             tv_username.setText(sharedPreferences.getString("username", ""));
+            iv_head_image.setImageResource(R.drawable.kunkun);
         }
 
         tv_address_manage.setOnClickListener(this);

@@ -109,8 +109,8 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_goods_container"
+        <ListView
+            android:id="@+id/lv_goods_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white" />

@@ -8,13 +8,25 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.internetprojectpractice.dto.CarDto;
+import com.example.internetprojectpractice.pojo.Cart;
 import com.example.internetprojectpractice.pojo.Goods;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class ShoppingDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,8 +48,6 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
 
         client = new OkHttpClient.Builder().build();
         gson = new Gson();
-
-        goods = getIntent().getParcelableExtra("goods");
 
         sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
 
@@ -64,16 +74,10 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
 
     //    展示商品详情
     private void showDetail() {
-        Intent intent = getIntent();
-//        Integer id = intent.getIntExtra("goods_id", 0);// 获取商品编号
-        /**
-         * 发送okhttp请求
-         * getGoodsById(id)
-         */
+        goods = getIntent().getParcelableExtra("goods");
         tv_title.setText("商品详情");
         tv_goods_desc.setText(goods.getTitle());
         tv_goods_price.setText(String.valueOf(goods.getPrice()));
-//        tv_count.setText("10");
         iv_goods_pic.setImageResource(R.drawable.iphone);
     }
 
@@ -85,20 +89,20 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
         }
         if (v.getId() == R.id.btn_add_cart) {
             boolean flag = isLogin();
-            if (flag){
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            View view = getLayoutInflater().inflate(R.layout.custom_dialog_layout, null);
-            NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
-            numberPicker.setMaxValue(10);
-            numberPicker.setMinValue(1);
-            builder.setView(view);
-            builder.setTitle("请选择你要添加的商品数量");
-            builder.setPositiveButton("确定", (dialog, which) -> {
-                int sum = numberPicker.getValue();
-                addToCart(1);
-            });
-            builder.setNegativeButton("取消", null);
-            builder.create().show();
+            if (flag) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                View view = getLayoutInflater().inflate(R.layout.custom_dialog_layout, null);
+                NumberPicker numberPicker = view.findViewById(R.id.numberPicker);
+                numberPicker.setMaxValue(10);
+                numberPicker.setMinValue(1);
+                builder.setView(view);
+                builder.setTitle("请选择你要添加的商品数量");
+                builder.setPositiveButton("确定", (dialog, which) -> {
+                    int num = numberPicker.getValue();
+                    addToCart(num);
+                });
+                builder.setNegativeButton("取消", null);
+                builder.create().show();
             } else {
                 new AlertDialog.Builder(this)
                         .setTitle("提示")
@@ -127,7 +131,7 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
                 });
                 builder.setNegativeButton("取消", null);
                 builder.create().show();
-            }else{
+            } else {
                 new AlertDialog.Builder(this)
                         .setTitle("提示")
                         .setMessage("请先登录")
@@ -143,37 +147,81 @@ public class ShoppingDetailActivity extends AppCompatActivity implements View.On
     }
 
     private boolean isLogin() {
-        if (sharedPreferences.contains("username")) {
-            return true;
-        }
-        return false;
+        return sharedPreferences.contains("username");
     }
 
     private void buyGoods(int sum) {
         Intent intent = new Intent(this, BuyGoodsActivity.class);
+        ArrayList<CarDto> carDtoList = new ArrayList<>();
+        CarDto carDto = new CarDto();
+        carDto.setPid(String.valueOf(goods.getId()));
+        carDto.setNum(sum);
+        carDto.setTitle(goods.getTitle());
+        carDto.setPrice(goods.getPrice());
+        carDtoList.add(carDto);
+        intent.putParcelableArrayListExtra("carDtoList", carDtoList);
         startActivity(intent);
     }
 
     /**
-     * 将商品添加到购物车
+     * 添加到购物车
      *
-     * @param goodId,商品编号,也是需要在上述代码中传递的参数
+     * @param sum
      */
-    private void addToCart(Integer goodId) {
-        /**
-         * 发送okhttp请求
-         * 将商品添加到购物车,需要得到用户id，如果没有用户id，需要先登录
-         */
+    private void addToCart(int sum) {
+        Cart cart = new Cart();
+        cart.setPid(goods.getId());
+        cart.setNum(sum);
+        cart.setPrice((int) goods.getPrice());
 
+        String json = gson.toJson(cart);
+        System.out.println("我写的json："+json);
+        RequestBody requestBody = RequestBody.create(json,
+                MediaType.parse("application/json"));
+
+        Request request = new Request.Builder()
+                .addHeader("token", sharedPreferences.getString("token", ""))
+                .post(requestBody)
+                .url("http://10.0.2.2:8080/car/createCar")
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                try {
+                    if (response.isSuccessful()) {
+                        String result = response.body().string();
+                        boolean flag = Boolean.parseBoolean(result);
+                        if (flag) {
+                            runOnUiThread(() -> {
+                                new AlertDialog.Builder(ShoppingDetailActivity.this)
+                                        .setTitle("提示")
+                                        .setMessage("添加成功")
+                                        .setPositiveButton("确定", null)
+                                        .create()
+                                        .show();
+
+                            });
+                        } else {
+                            runOnUiThread(() -> {
+                                new AlertDialog.Builder(ShoppingDetailActivity.this)
+                                        .setTitle("提示")
+                                        .setMessage("添加失败")
+                                        .setPositiveButton("确定", null)
+                                        .create()
+                                        .show();
+                            });
+                        }
+                    }
+                } finally {
+                    response.close();
+                }
+            }
+        });
     }
-
-    private Goods getGoodsById(Integer id) {
-        /**
-         * 发送okhttp请求
-         * 根据商品编号获取商品信息
-         */
-        return null;
-    }
-
-
 }

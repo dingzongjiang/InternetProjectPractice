@@ -9,9 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,21 +20,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.internetprojectpractice.LoginMainActivity;
 import com.example.internetprojectpractice.R;
-import com.example.internetprojectpractice.ShoppingDetailActivity;
 import com.example.internetprojectpractice.adapter.CartAdapter;
-import com.example.internetprojectpractice.adapter.ShoppingCartAdapter;
 import com.example.internetprojectpractice.decoration.SpacingItemDecoration;
+import com.example.internetprojectpractice.dto.CarDto;
 import com.example.internetprojectpractice.pojo.Goods;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CartFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CartFragment extends Fragment {
+public class CartFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,6 +50,10 @@ public class CartFragment extends Fragment {
     private List<Goods> selectedItems;
     private LinearLayout ll_empty;
     private LinearLayout ll_bottom;
+    private Button btn_settle;
+    private OkHttpClient client;
+    private Gson gson;
+    private SharedPreferences sharedPreferences;
 
     public CartFragment() {
         // Required empty public constructor
@@ -85,7 +90,7 @@ public class CartFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        SharedPreferences sharedPreferences =getActivity().getSharedPreferences("userInfo",getActivity().MODE_PRIVATE);
+        sharedPreferences = getActivity().getSharedPreferences("userInfo",getActivity().MODE_PRIVATE);
 
         if (!sharedPreferences.contains("username")) {
             Log.i(TAG, "我被初始化了");
@@ -100,14 +105,18 @@ public class CartFragment extends Fragment {
                     .show();
         }
 
+        client = new OkHttpClient.Builder().build();
+        gson = new Gson();
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
 //        通过getShoppingCart()方法获取购物车中的商品信息
-        List<Goods> goods = getShoppingCart();
+//        List<Goods> goods = getShoppingCart();
 //        找到购物车xml文件中没有商品时显示的控件
         ll_empty = view.findViewById(R.id.ll_empty);
         rv_cart = view.findViewById(R.id.rv_cart);
         ll_bottom = view.findViewById(R.id.ll_bottom);
+        btn_settle = view.findViewById(R.id.btn_settle);
         view.findViewById(R.id.iv_cart).setVisibility(View.VISIBLE);
         view.findViewById(R.id.iv_back).setVisibility(View.GONE);
 //        找到显示购物车中商品数量的控件
@@ -115,42 +124,68 @@ public class CartFragment extends Fragment {
 //        设置购物车中商品数量的显示，只在购物车模块中显示
         tv_count.setVisibility(View.VISIBLE);
 //        设置购物车中商品数量的值
-        tv_count.setText(String.valueOf(goods.size()));
-//        下面两行是测试代码，测试完成后需要删除
-        Goods goodsOne = new Goods("xiaomi",6233);
+//        tv_count.setText(String.valueOf(goods.size()));
+////        下面两行是测试代码，测试完成后需要删除
+//        Goods goodsOne = new Goods("xiaomi",6233);
+//        for (int i = 0; i < 10; i++) {
+//            goods.add(goodsOne);
+//        }
+        CarDto carDto = new CarDto(1,"小米",1699);
+        List<CarDto> carDtoList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            goods.add(goodsOne);
+            carDtoList.add(carDto);
         }
 
-        render(goods);
+        System.out.println("我到这儿来了，我是购物车");
+//        render(carDtoList);
 
+        btn_settle.setOnClickListener(this);
         return view;
     }
 
-    private void render(List<Goods> goods) {
-        if (goods.isEmpty() || goods == null) {
+    private void render(List<CarDto> cartDtoList) {
+        if (cartDtoList == null ||cartDtoList.isEmpty()) {
 //            如果购物车中没有商品，则显示购物车为空的控件
             ll_empty.setVisibility(View.VISIBLE);
             ll_bottom.setVisibility(View.GONE);
-
         } else {
 //            如果购物车中有商品，则隐藏购物车为空的控件
             ll_empty.setVisibility(View.GONE);
 //            ShoppingCartAdapter adapter = new ShoppingCartAdapter(getActivity(), goods);
 //            设置购物车中商品的适配器
-            CartAdapter adapter = new CartAdapter(goods);
+            CartAdapter adapter = new CartAdapter(cartDtoList);
+//            System.out.println("我到这儿来了，我是渲染函数，adapter="+adapter.toString());
             rv_cart.setAdapter(adapter);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
             rv_cart.setLayoutManager(layoutManager);
             rv_cart.addItemDecoration(new SpacingItemDecoration(5));
-            selectedItems = adapter.getSelectedItems();
+//            System.out.println("我到这儿来了，我是渲染函数，现在要设置监听器");
 
+            adapter.setOnCheckedListener((position, isChecked) -> {
+                CarDto carDto = cartDtoList.get(position);
+                carDto.setChecked(isChecked);
+            });
         }
     }
 
 
-    private List<Goods> getShoppingCart() {
-        List<Goods> goodsList = new ArrayList<>();
-        return goodsList;
+    private void getShoppingCart() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_settle) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("提示")
+                    .setMessage("是否确认购买？")
+                    .setPositiveButton("确定", (dialog, which) -> {
+
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
+
+
+        }
     }
 }
